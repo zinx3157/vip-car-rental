@@ -73,7 +73,7 @@ async function submitBooking(event){
 async function login(event){
   event.preventDefault(); const form=event.currentTarget;
   const email=form.elements.email,password=form.elements.password;
-  setFieldError(email,'');setFieldError(password,'');setBusy(form,true,'Connexion…');
+  setFieldError(email,'');setFieldError(password,'');if(!form.reportValidity())return;setBusy(form,true,'Connexion…');
   const {error}=await supabaseClient.auth.signInWithPassword({email:email.value.trim(),password:password.value});
   setBusy(form,false);
   if(error){setFieldError(password,'Email ou mot de passe incorrect.');password.focus();return}
